@@ -17,7 +17,7 @@ import {
 
 export const DashboardUserButton = () => {
   const { data: session } = authClient.useSession();
-  const accountLabel = session?.user?.name || session?.user?.nickname || "Account";
+  const accountLabel = session?.user?.name || session?.user?.name || "Account";
   const emailHint = session?.user?.email || "No email available";
 
   return (
@@ -33,7 +33,7 @@ export const DashboardUserButton = () => {
               </div>
             </Link>
             <DropdownMenu>
-              <DropdownMenuTrigger asChild>
+              <DropdownMenuTrigger asChild className="inline-flex h-9 w-9 items-center justify-center rounded-md text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground gap-x-2">
                 <button
                   type="button"
                   className="inline-flex h-9 w-9 items-center justify-center rounded-md text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
