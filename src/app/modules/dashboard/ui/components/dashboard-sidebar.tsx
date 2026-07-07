@@ -27,7 +27,7 @@ const menuItems = [
     {
         icon: MessageCircle,
         label: "Chat",
-        href: "/chat",
+        href: "/agents",
     },
     {
         icon: StarIcon,
