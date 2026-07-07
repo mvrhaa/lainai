@@ -163,7 +163,7 @@ export const SignUpView = () => {
                                 </div>
                                 {!!error && (
                                     <Alert className="bg-destructive/10 border-none">
-                                        <OctagonAlertIcon className="h-4 w-4 !text-destructive" />
+                                        <OctagonAlertIcon className="h-4 w-4 text-destructive" />
                                         <AlertTitle>{error}</AlertTitle>
                                     </Alert>
                                 )}
@@ -197,7 +197,7 @@ export const SignUpView = () => {
                     </Form>
                     
                     <div className="bg-radial from-purple-400 to-purple-900 relative hidden md:flex flex-col items-center justify-center gap-y-4">
-                        <img src="/logol.svg" alt="Image" className="h-[92px] w-[92px]" />
+                        <img src="/logol.svg" alt="Image" className="h-23 w-23" />
                         <p className="font-bold text-black text-2xl tracking-wide">Build your future</p>
                     </div>
                 </CardContent>
