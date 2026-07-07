@@ -1,76 +1,38 @@
 "use client";
-import {useState} from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import { authClient } from "@/lib/auth-client";
+import { UserGreeting } from "@/components/ui/user-greeting";
+import { SignOutButton } from "@/components/sign-out-button";
+import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
-export default function Home() {
-  const { 
-        data: session, } = authClient.useSession() 
+export default function AccountPage() {
+  const { data: session } = authClient.useSession();
 
-  const[name,setName] = useState("");
-  const[email,setEmail] = useState("");
-  const[password,setPassword] = useState("");
-
-  const onSubmit = () =>{
-    authClient.signUp.email({
-      email,
-      name,
-      password,
-    },{
-        onError: () => {
-            window.alert("Something went wrong");
-        },
-        onSuccess: () => {
-            window.alert("Success");
-        }
-      });
-  }
-
-  const onLogin = () =>{
-    authClient.signIn.email({
-      email,
-      password,
-    },{
-        onError: () => {
-            window.alert("Something went wrong");
-        },
-        onSuccess: () => {
-            window.alert("Success");
-        }
-      });
-  }
-  if (session){
-    return (
-      <div className="flex flex-col p4 gap-y-4">
-        <p>
-          Logged in as {session.user.name}
-        </p>
-        <Button onClick={() => authClient.signOut()}>
-          Sign out
-        </Button>
-      </div>
-    )
-  }
-
- return (
-  <div className="flex flex-col gap-y-10">
-
-    <div className="p-4 flex flex-col gap-y-4">
-     <Input placeholder="name" value={name} onChange={(e) => setName(e.target.value)}/>
-     <Input placeholder="email"value={email} onChange={(e) => setEmail(e.target.value)}/>
-      <Input placeholder="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-     <Button onClick={onSubmit}>
-        Create user
-     </Button>
+  return (
+    <div className="mx-auto w-full max-w-2xl p-6">
+      <Card>
+        <CardHeader className="flex flex-row items-center justify-between space-y-0">
+          <div className="space-y-1">
+            <CardDescription>Signed in as</CardDescription>
+            <UserGreeting showEmail />
+          </div>
+        </CardHeader>
+        <Separator />
+        <CardContent className="space-y-4 pt-6">
+          <div className="space-y-1">
+            <p className="text-sm font-medium text-muted-foreground">Name</p>
+            <p className="text-sm">{session?.user?.name ?? "—"}</p>
+          </div>
+          <div className="space-y-1">
+            <p className="text-sm font-medium text-muted-foreground">Email</p>
+            <p className="text-sm">{session?.user?.email ?? "—"}</p>
+          </div>
+          <Separator />
+          <div className="flex justify-end">
+            <SignOutButton variant="destructive" />
+          </div>
+        </CardContent>
+      </Card>
     </div>
-   <div className="p-4 flex flex-col gap-y-4">
-     <Input placeholder="email"value={email} onChange={(e) => setEmail(e.target.value)}/>
-     <Input placeholder="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)}/>
-     <Button onClick={onLogin}>
-       Login
-     </Button>
-    </div>
-  </div>
- ) 
+  );
 }

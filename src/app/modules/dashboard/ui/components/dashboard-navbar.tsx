@@ -12,9 +12,13 @@ import { useEffect, useState } from "react";
 export const DashboardNavbar = () => {
     const {state, toggleSidebar, isMobile} = useSidebar();
     const [commandOpen, setCommandOpen] = useState(false);
+    const [isMac, setIsMac] = useState(false);
+
     useEffect(() =>{
+         setIsMac(typeof navigator !== "undefined" && /Mac|iPhone|iPad|iPod/.test(navigator.platform));
          const down = (e: KeyboardEvent) => {
-            if (e.metaKey || e.ctrlKey){
+            const key = e.key.toLowerCase();
+            if ((key === "k" || e.code === "KeyK") && (e.metaKey || e.ctrlKey)){
                 e.preventDefault();
                 setCommandOpen((open) => !open);
             }
@@ -30,11 +34,11 @@ export const DashboardNavbar = () => {
             <Button className="size-9" variant="outline" onClick={toggleSidebar}>
                 {(state === "collapsed" || isMobile) ? <PanelLeftIcon className="size-4"/> : <PanelLeftCloseIcon className="size-4"/>}
             </Button>
-            <Button variant="outline" size="sm" onClick={() => setCommandOpen((open) => !open)} className="h-9 w-[240px] justify-start font-normal text-muted-foreground hover:text-muted-foreground">
+            <Button variant="outline" size="sm" onClick={() => setCommandOpen((open) => !open)} className="h-9 w-60 justify-start font-normal text-muted-foreground hover:text-muted-foreground">
                 <SearchIcon />
                     Search
-                    <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font mono text-[10px] font-medium text-muted-foreground">
-                        <span className="text xs">&#8984;</span>
+                    <kbd className="ml-auto pointer-events-none inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
+                        <span>{isMac ? "⌘ + K" : "Ctrl + K"}</span>
                     </kbd>
             </Button>
         </nav>
