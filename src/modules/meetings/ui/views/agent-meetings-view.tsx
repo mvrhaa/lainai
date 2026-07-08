@@ -69,7 +69,7 @@ export const AgentMeetingsView = ({ agentId }: Props) => {
 
       <div className="flex-1 overflow-y-auto p-6">
         <div className="grid gap-6 lg:grid-cols-[1fr_320px]">
-          <Card className="rounded-[1.5rem] border-border bg-card shadow-sm">
+          <Card className="rounded-3xl border-border bg-card shadow-sm">
             <CardHeader className="p-6">
               <CardTitle>Start a new chat</CardTitle>
               <CardDescription>
@@ -105,7 +105,7 @@ export const AgentMeetingsView = ({ agentId }: Props) => {
             </CardContent>
           </Card>
 
-          <Card className="rounded-[1.5rem] border-border bg-card shadow-sm">
+          <Card className="rounded-3xl border-border bg-card shadow-sm">
             <CardHeader className="p-6">
               <CardTitle>Previous chats</CardTitle>
               <CardDescription>Pick up an earlier conversation with this agent.</CardDescription>

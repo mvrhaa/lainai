@@ -14,7 +14,7 @@ const Layout = ({ children }: Props) => {
             Modern AI workspace built for productivity
           </div>
         </div>
-        <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-card/95 shadow-2xl shadow-slate-900/15 backdrop-blur-xl">
+        <div className="overflow-hidden rounded-4xl border border-white/10 bg-card/95 shadow-2xl shadow-slate-900/15 backdrop-blur-xl">
           {children}
         </div>
       </div>

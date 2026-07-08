@@ -71,7 +71,7 @@ export const ChatView = ({ agentId, meetingId }: Props) => {
 
   return (
     <div className="flex h-full flex-col overflow-hidden">
-      <Card className="flex h-full flex-col rounded-[1.5rem] border-border bg-card shadow-sm">
+      <Card className="flex h-full flex-col rounded-3xl border-border bg-card shadow-sm">
         <CardHeader className="space-y-2 border-b border-border p-6">
           <div className="flex items-center justify-between gap-3">
             <div>
@@ -112,7 +112,7 @@ export const ChatView = ({ agentId, meetingId }: Props) => {
                     <div className="mb-2 text-xs font-medium uppercase tracking-[0.12em] text-muted-foreground">
                       {m.role === "user" ? "You" : "Agent"}
                     </div>
-                    <div className="whitespace-pre-wrap break-words">{m.content}</div>
+                    <div className="whitespace-pre-wrap wrap-break-words">{m.content}</div>
                   </li>
                 ))
               )}

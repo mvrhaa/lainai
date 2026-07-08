@@ -10,7 +10,7 @@ export default function DashboardHomePage() {
 
   return (
     <div className="mx-auto w-full max-w-6xl space-y-6 p-6">
-      <Card className="overflow-hidden rounded-[2rem] border border-white/10 bg-slate-950/95 shadow-2xl shadow-violet-500/10">
+      <Card className="overflow-hidden rounded-4xl border border-white/10 bg-slate-950/95 shadow-2xl shadow-violet-500/10">
         <CardHeader className="space-y-6 p-8 sm:p-10">
           <div className="inline-flex rounded-full bg-white/10 px-4 py-2 text-xs uppercase tracking-[0.35em] text-white/70 shadow-sm shadow-white/5">
             Agent workspace

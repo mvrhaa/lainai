@@ -63,7 +63,7 @@ export const SignInView = () => {
 
   return (
     <div className="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
-      <Card className="overflow-hidden rounded-[2rem] border border-white/10 bg-white/95 shadow-2xl shadow-slate-900/10 backdrop-blur-xl">
+      <Card className="overflow-hidden rounded-4xl border border-white/10 bg-white/95 shadow-2xl shadow-slate-900/10 backdrop-blur-xl">
         <div className="space-y-8 p-8 sm:p-10">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-3">

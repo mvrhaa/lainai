@@ -60,7 +60,7 @@ export default function NewAgentPage() {
 
   return (
     <div className="mx-auto w-full max-w-4xl p-6">
-      <Card className="rounded-[1.5rem] border-border bg-card shadow-sm">
+      <Card className="rounded-3xl border-border bg-card shadow-sm">
         <CardHeader className="space-y-3 p-6">
           <div>
             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-muted-foreground">

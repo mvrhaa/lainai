@@ -61,7 +61,7 @@ export const DashboardNavbar = () => {
                     </div>
                 </div>
 
-                <div className="relative flex-1 min-w-[240px] max-w-3xl">
+                <div className="relative flex-1 min-w-60 max-w-3xl">
                     <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-slate-900/80 px-3 py-2 shadow-sm shadow-black/20 focus-within:ring-2 focus-within:ring-primary/50">
                         <SearchIcon className="size-4 text-white/60" />
                         <input
@@ -77,7 +77,7 @@ export const DashboardNavbar = () => {
                     </div>
 
                     {searchOpen && trimmedSearch.length > 0 ? (
-                        <div className="absolute left-0 right-0 z-20 mt-2 max-h-[24rem] overflow-hidden overflow-y-auto rounded-[1.5rem] border border-white/10 bg-slate-950/95 px-2 py-3 shadow-2xl shadow-slate-950/40 backdrop-blur-xl">
+                        <div className="absolute left-0 right-0 z-20 mt-2 max-h-96 overflow-hidden overflow-y-auto rounded-3xl border border-white/10 bg-slate-950/95 px-2 py-3 shadow-2xl shadow-slate-950/40 backdrop-blur-xl">
                             <div className="mb-3 flex items-center justify-between px-2 text-xs uppercase tracking-[0.35em] text-white/50">
                                 <span>Search results</span>
                                 <span>{(agentsQuery.data?.length ?? 0) + (chatsQuery.data?.length ?? 0)} matches</span>
