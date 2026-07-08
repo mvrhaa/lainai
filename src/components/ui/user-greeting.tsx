@@ -57,15 +57,15 @@ export const UserGreeting = ({
   const initials = getInitials(user.name, user.email);
 
  const handleSignOut = async () => {
-  setSigningOut(true);
-  try {
-    await authClient.signOut();
-    router.push("/sign-up");
-    router.refresh();
-  } catch {
-    setSigningOut(false);
-  }
-};
+   setSigningOut(true);
+   try {
+     await authClient.signOut();
+     router.push("/sign-in");
+     router.refresh();
+   } finally {
+     setSigningOut(false);
+   }
+ };
 
 
   return (

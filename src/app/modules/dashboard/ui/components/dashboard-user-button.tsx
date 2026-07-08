@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ChevronDown, LogOut, Mail, UserCog } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
@@ -29,6 +30,7 @@ function getInitials(name?: string | null, email?: string | null) {
 }
 
 export const DashboardUserButton = () => {
+  const router = useRouter();
   const { data: session } = authClient.useSession();
   const [signingOut, setSigningOut] = useState(false);
 
@@ -43,6 +45,8 @@ export const DashboardUserButton = () => {
     setSigningOut(true);
     try {
       await authClient.signOut();
+      router.push("/sign-in");
+      router.refresh();
     } finally {
       setSigningOut(false);
     }

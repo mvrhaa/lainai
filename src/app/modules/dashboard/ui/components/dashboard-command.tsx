@@ -1,23 +1,18 @@
-import { CommandDialog, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { CommandDialog, CommandInput, CommandList, CommandEmpty } from "@/components/ui/command";
 import { Dispatch, SetStateAction } from "react";
 
-interface Props{
+interface Props {
     open: boolean;
-    setOpen: Dispatch<SetStateAction<boolean>>
+    setOpen: Dispatch<SetStateAction<boolean>>;
 }
 
-export const DashboardCommand = ({open,setOpen}: Props) => {
-return (
-    <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput 
-        placeholder="Find a session or agent"
-        />
-        <CommandList>
-            <CommandItem>
-                Test
-            </CommandItem>
-        </CommandList>
-    </CommandDialog>
-
-);
+export const DashboardCommand = ({ open, setOpen }: Props) => {
+    return (
+        <CommandDialog open={open} onOpenChange={setOpen}>
+            <CommandInput placeholder="Search agents, chats, or commands" />
+            <CommandList>
+                <CommandEmpty>No quick actions available yet.</CommandEmpty>
+            </CommandList>
+        </CommandDialog>
+    );
 };

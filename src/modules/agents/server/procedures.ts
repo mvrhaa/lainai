@@ -2,7 +2,7 @@ import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
 import { db } from "@/db"
 import { agents } from "@/db/schema"
 import { TRPCError } from "@trpc/server";
-import { and, eq } from "drizzle-orm";
+import { and, eq, ilike } from "drizzle-orm";
 import { z } from "zod";
 
 export const agentsRouter = createTRPCRouter({
@@ -54,7 +54,21 @@ export const agentsRouter = createTRPCRouter({
                 .returning();
             return row;
         }),
-        delete: protectedProcedure
+    search: protectedProcedure
+        .input(z.object({ query: z.string().optional() }))
+        .query(async ({ ctx, input }) => {
+            const conditions = [eq(agents.userId, ctx.user.id)];
+
+            if (input.query?.trim()) {
+                conditions.push(ilike(agents.name, `%${input.query.trim()}%`));
+            }
+
+            return db
+                .select()
+                .from(agents)
+                .where(and(...conditions));
+        }),
+    delete: protectedProcedure
         .input(z.object({ id: z.string() }))
         .mutation(async ({ ctx, input }) => {
             const [agent] = await db
