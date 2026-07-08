@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { headers } from "next/headers";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { auth } from "@/lib/auth"; // server-side Better Auth instance
+import { ensureDefaultAgent } from "@/modules/agents/server/default-agent";
 import { DashboardSideBar } from "../modules/dashboard/ui/components/dashboard-sidebar";
 import { DashboardNavbar } from "../modules/dashboard/ui/components/dashboard-navbar";
 
@@ -15,6 +16,11 @@ const Layout = async ({ children }: Props) => {
   if (!session) {
     redirect("/sign-in");
   }
+
+  // Every signed-in user always has at least their protected main agent
+  // (the one defined in code). Idempotent — only inserts when they have
+  // zero agents, so this is cheap on subsequent loads.
+  await ensureDefaultAgent(session.user.id);
 
   return (
     <SidebarProvider>

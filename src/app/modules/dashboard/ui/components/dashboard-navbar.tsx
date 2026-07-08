@@ -13,7 +13,6 @@ export const DashboardNavbar = () => {
     const { state, toggleSidebar, isMobile } = useSidebar();
     const trpc = useTRPC();
     const [commandOpen, setCommandOpen] = useState(false);
-    const [isMac, setIsMac] = useState(false);
     const [search, setSearch] = useState("");
     const [searchOpen, setSearchOpen] = useState(false);
     const inputRef = useRef<HTMLInputElement | null>(null);
@@ -33,7 +32,6 @@ export const DashboardNavbar = () => {
     });
 
     useEffect(() => {
-        setIsMac(typeof navigator !== "undefined" && /Mac|iPhone|iPad|iPod/.test(navigator.platform));
         const down = (e: KeyboardEvent) => {
             const key = e.key.toLowerCase();
             if ((key === "k" || e.code === "KeyK") && (e.metaKey || e.ctrlKey)) {
@@ -50,20 +48,20 @@ export const DashboardNavbar = () => {
     return (
         <>
             <DashboardCommand open={commandOpen} setOpen={setCommandOpen} />
-            <nav className="relative flex flex-wrap items-center justify-between gap-3 border-b border-white/10 bg-slate-950/95 px-4 py-3 text-white backdrop-blur-xl shadow-sm shadow-slate-900/10">
+            <nav className="relative flex flex-wrap items-center justify-between gap-3 border-b border-sidebar-border bg-sidebar px-4 py-3 text-sidebar-foreground backdrop-blur-xl shadow-sm shadow-black/20">
                 <div className="flex items-center gap-3">
                     <Button className="size-9" variant="outline" onClick={toggleSidebar}>
                         {(state === "collapsed" || isMobile) ? <PanelLeftIcon className="size-4" /> : <PanelLeftCloseIcon className="size-4" />}
                     </Button>
                     <div className="flex flex-col">
-                        <span className="text-sm font-semibold tracking-[0.15em] text-white">LainAI</span>
-                        <span className="text-xs text-white/60">Your intelligent workspace</span>
+                        <span className="text-sm font-semibold tracking-[0.15em] text-sidebar-foreground">LainAI</span>
+                        <span className="text-xs text-sidebar-foreground/60">Your intelligent workspace</span>
                     </div>
                 </div>
 
                 <div className="relative flex-1 min-w-60 max-w-3xl">
-                    <div className="flex items-center gap-2 rounded-2xl border border-white/10 bg-slate-900/80 px-3 py-2 shadow-sm shadow-black/20 focus-within:ring-2 focus-within:ring-primary/50">
-                        <SearchIcon className="size-4 text-white/60" />
+                    <div className="flex items-center gap-2 rounded-2xl border border-sidebar-border bg-white/[0.04] px-3 py-2 shadow-sm shadow-black/20 focus-within:ring-2 focus-within:ring-indigo-500/40">
+                        <SearchIcon className="size-4 text-sidebar-foreground/60" />
                         <input
                             ref={inputRef}
                             type="search"
@@ -72,12 +70,12 @@ export const DashboardNavbar = () => {
                             onFocus={() => setSearchOpen(true)}
                             onBlur={() => setTimeout(() => setSearchOpen(false), 150)}
                             placeholder="Search agents or chats"
-                            className="w-full bg-transparent text-sm text-white placeholder:text-white/40 outline-none"
+                            className="w-full bg-transparent text-sm text-sidebar-foreground placeholder:text-sidebar-foreground/40 outline-none"
                         />
                     </div>
 
                     {searchOpen && trimmedSearch.length > 0 ? (
-                        <div className="absolute left-0 right-0 z-20 mt-2 max-h-96 overflow-hidden overflow-y-auto rounded-3xl border border-white/10 bg-slate-950/95 px-2 py-3 shadow-2xl shadow-slate-950/40 backdrop-blur-xl">
+                        <div className="absolute left-0 right-0 z-20 mt-2 max-h-96 animate-fade-in-up overflow-hidden overflow-y-auto rounded-3xl border border-white/10 bg-slate-950/95 px-2 py-3 shadow-2xl shadow-slate-950/40 backdrop-blur-xl">
                             <div className="mb-3 flex items-center justify-between px-2 text-xs uppercase tracking-[0.35em] text-white/50">
                                 <span>Search results</span>
                                 <span>{(agentsQuery.data?.length ?? 0) + (chatsQuery.data?.length ?? 0)} matches</span>

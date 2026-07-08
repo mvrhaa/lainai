@@ -2,7 +2,7 @@ import { createTRPCRouter, protectedProcedure } from "@/trpc/init";
 import { db } from "@/db"
 import { agents } from "@/db/schema"
 import { TRPCError } from "@trpc/server";
-import { and, eq, ilike } from "drizzle-orm";
+import { and, asc, eq, ilike } from "drizzle-orm";
 import { z } from "zod";
 
 export const agentsRouter = createTRPCRouter({
@@ -10,7 +10,10 @@ export const agentsRouter = createTRPCRouter({
         const data = await db
             .select()
             .from(agents)
-            .where(eq(agents.userId, ctx.user.id));
+            .where(eq(agents.userId, ctx.user.id))
+            // Oldest first so the UI can treat data[0] as the protected
+            // "main" agent (see the delete guard in `delete` below).
+            .orderBy(asc(agents.createdAt), asc(agents.id));
 
         return data;
     }),
@@ -86,6 +89,25 @@ export const agentsRouter = createTRPCRouter({
                 throw new TRPCError({
                     code: "NOT_FOUND",
                     message: "Agent not found",
+                });
+            }
+
+            // The user's oldest agent is the protected "main" agent and
+            // can NEVER be deleted — not from the UI, not via a direct
+            // API call. Every other agent the user creates is freely
+            // deletable. createdAt is immutable, so "oldest" is stable
+            // even as agents are added or removed.
+            const [oldest] = await db
+                .select({ id: agents.id })
+                .from(agents)
+                .where(eq(agents.userId, ctx.user.id))
+                .orderBy(asc(agents.createdAt), asc(agents.id))
+                .limit(1);
+
+            if (oldest && oldest.id === input.id) {
+                throw new TRPCError({
+                    code: "FORBIDDEN",
+                    message: "Your main agent cannot be deleted.",
                 });
             }
 
