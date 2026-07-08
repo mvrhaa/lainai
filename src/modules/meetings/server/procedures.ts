@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { and, asc, desc, eq } from "drizzle-orm";
+import { and, asc, desc, eq, ilike } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 import { nanoid } from "nanoid";
 
@@ -89,6 +89,21 @@ export const meetingsRouter = createTRPCRouter({
                         eq(meetings.userId, ctx.user.id),
                     ),
                 )
+                .orderBy(desc(meetings.updatedAt));
+        }),
+    search: protectedProcedure
+        .input(z.object({ query: z.string().optional() }))
+        .query(async ({ ctx, input }) => {
+            const conditions = [eq(meetings.userId, ctx.user.id)];
+
+            if (input.query?.trim()) {
+                conditions.push(ilike(meetings.name, `%${input.query.trim()}%`));
+            }
+
+            return db
+                .select()
+                .from(meetings)
+                .where(and(...conditions))
                 .orderBy(desc(meetings.updatedAt));
         }),
 

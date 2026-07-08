@@ -7,14 +7,14 @@ import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 
 interface SignOutButtonProps {
-  /** Where to send the user after signing out. @default "/sign-up" */
+  /** Where to send the user after signing out. @default "/sign-in" */
   redirectTo?: string;
   variant?: "default" | "outline" | "ghost" | "destructive";
   className?: string;
 }
 
 export const SignOutButton = ({
-  redirectTo = "/sign-up",
+  redirectTo = "/sign-in",
   variant = "outline",
   className,
 }: SignOutButtonProps) => {
