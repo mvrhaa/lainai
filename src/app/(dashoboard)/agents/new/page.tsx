@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+import { Loader2Icon } from "lucide-react";
 import { useTRPC } from "@/trpc/client";
 import { Button } from "@/components/ui/button";
 import {
@@ -48,9 +50,12 @@ export default function NewAgentPage() {
   const createAgent = useMutation(
     trpc.agents.create.mutationOptions({
       onSuccess: async () => {
+        toast.success("Agent created");
         await queryClient.invalidateQueries({ queryKey: trpc.agents.getMany.queryKey() });
         router.push("/agents");
       },
+      onError: (error) =>
+        toast.error(error.message || "Could not create the agent."),
     }),
   );
 
@@ -59,7 +64,7 @@ export default function NewAgentPage() {
   };
 
   return (
-    <div className="mx-auto w-full max-w-4xl p-6">
+    <div className="mx-auto w-full max-w-4xl animate-fade-in-up p-6">
       <Card className="rounded-3xl border-border bg-card shadow-sm">
         <CardHeader className="space-y-3 p-6">
           <div>
@@ -119,17 +124,14 @@ export default function NewAgentPage() {
                       Cancel
                     </Button>
                   </Link>
-                  <Button type="submit" disabled={createAgent.isPending}>
+                  <Button type="submit" disabled={createAgent.isPending} className="gap-1.5">
+                    {createAgent.isPending ? (
+                      <Loader2Icon className="size-4 animate-spin" />
+                    ) : null}
                     {createAgent.isPending ? "Creating…" : "Create agent"}
                   </Button>
                 </div>
               </div>
-
-              {createAgent.error ? (
-                <div className="rounded-2xl bg-destructive/10 px-4 py-3 text-sm text-destructive">
-                  {createAgent.error.message}
-                </div>
-              ) : null}
             </form>
           </Form>
         </CardContent>

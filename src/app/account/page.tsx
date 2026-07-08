@@ -14,7 +14,7 @@ export default function AccountPage() {
   };
 
   return (
-    <div className="p-6">
+    <div className="animate-fade-in-up p-6">
       <h1 className="text-2xl font-semibold">Account</h1>
       <div className="mt-4 rounded-xl border border-border bg-background p-4 shadow-sm">
         <p className="text-sm text-muted-foreground">Logged in as</p>

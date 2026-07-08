@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertTitle } from "@/components/ui/alert";
-import { OctagonAlertIcon, GitBranch } from "lucide-react";
+import { OctagonAlertIcon, GitBranch, Loader2Icon } from "lucide-react";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import {
@@ -72,7 +72,7 @@ export const SignUpView = () => {
   };
 
   return (
-    <div className="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
+    <div className="mx-auto w-full max-w-3xl animate-fade-in-up px-4 py-10 sm:px-6 lg:px-8">
       <Card className="overflow-hidden rounded-4xl border border-white/10 bg-white/95 shadow-2xl shadow-slate-900/10 backdrop-blur-xl">
         <div className="space-y-8 p-8 sm:p-10">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -165,9 +165,10 @@ export const SignUpView = () => {
                 <Button
                   disabled={pending}
                   type="submit"
-                  className="w-full rounded-[1.25rem] bg-slate-950 py-3 text-base text-white hover:bg-slate-900"
+                  className="w-full gap-2 rounded-[1.25rem] bg-slate-950 py-3 text-base text-white hover:bg-slate-900"
                 >
-                  Sign up
+                  {pending ? <Loader2Icon className="size-4 animate-spin" /> : null}
+                  {pending ? "Creating account…" : "Sign up"}
                 </Button>
 
                 <div className="relative text-center text-sm text-muted-foreground">

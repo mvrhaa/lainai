@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 
 export default function UpgradePage() {
   return (
-    <div className="mx-auto w-full max-w-4xl p-6">
+    <div className="mx-auto w-full max-w-4xl animate-fade-in-up p-6">
       <Card className="rounded-3xl border-border bg-card shadow-sm">
         <CardHeader className="space-y-3 p-6">
           <CardTitle>Upgrade coming soon</CardTitle>
